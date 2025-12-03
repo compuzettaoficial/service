@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asistencia Remota - Soporte Técnico Profesional</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .hidden { display: none; }
+        .active-link { color: #2563eb; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-bold text-gray-900">Asistencia Remota</h1>
+                <div class="flex gap-8">
+                    <button onclick="showSection('inicio')" class="nav-btn active-link hover:text-blue-600 transition">
+                        Inicio
+                    </button>
+                    <button onclick="showSection('programas')" class="nav-btn text-gray-600 hover:text-blue-600 transition">
+                        Programas
+                    </button>
+                    <button onclick="showSection('contacto')" class="nav-btn text-gray-600 hover:text-blue-600 transition">
+                        Contacto
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="section max-w-6xl mx-auto px-6 py-20">
+        <div class="text-center mb-16">
+            <h2 class="text-5xl font-bold text-gray-900 mb-4">
+                Soporte Técnico Remoto
+            </h2>
+            <p class="text-xl text-gray-600 mb-8">
+                Soluciones rápidas y profesionales para tus problemas informáticos
+            </p>
+            <button onclick="showSection('programas')" class="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition">
+                Ver Programas ↓
+            </button>
+        </div>
+
+        <!-- Services Grid -->
+        <div class="grid md:grid-cols-3 gap-8 mt-16">
+            <div class="bg-white p-8 rounded-lg shadow-sm hover:shadow-md transition">
+                <div class="text-blue-600 mb-4 text-4xl">🖥️</div>
+                <h3 class="text-xl font-semibold mb-2">Soporte Técnico</h3>
+                <p class="text-gray-600">Resolución de problemas en tiempo real</p>
+            </div>
+            <div class="bg-white p-8 rounded-lg shadow-sm hover:shadow-md transition">
+                <div class="text-blue-600 mb-4 text-4xl">🛡️</div>
+                <h3 class="text-xl font-semibold mb-2">Seguridad</h3>
+                <p class="text-gray-600">Conexiones cifradas y seguras</p>
+            </div>
+            <div class="bg-white p-8 rounded-lg shadow-sm hover:shadow-md transition">
+                <div class="text-blue-600 mb-4 text-4xl">🎧</div>
+                <h3 class="text-xl font-semibold mb-2">Atención 24/7</h3>
+                <p class="text-gray-600">Disponible cuando lo necesites</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section id="programas" class="section hidden max-w-6xl mx-auto px-6 py-20">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                Programas de Conexión Remota
+            </h2>
+            <p class="text-lg text-gray-600">
+                Descarga el programa que necesites para comenzar la asistencia
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6">
+            <!-- AnyDesk -->
+            <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition">
+                <div class="flex items-start gap-4">
+                    <div class="text-4xl">🖥️</div>
+                    <div class="flex-1">
+                        <h3 class="text-xl font-semibold mb-2">AnyDesk</h3>
+                        <p class="text-gray-600 mb-4">Acceso remoto rápido y seguro</p>
+                        <a href="https://anydesk.com/es/downloads" target="_blank" rel="noopener noreferrer" 
+                           class="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
+                            📥 Descargar
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TeamViewer -->
+            <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition">
+                <div class="flex items-start gap-4">
+                    <div class="text-4xl">👁️</div>
+                    <div class="flex-1">
+                        <h3 class="text-xl font-semibold mb-2">TeamViewer</h3>
+                        <p class="text-gray-600 mb-4">Soporte remoto completo</p>
+                        <a href="https://www.teamviewer.com/es/descarga/" target="_blank" rel="noopener noreferrer" 
+                           class="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
+                            📥 Descargar
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chrome Remote Desktop -->
+            <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition">
+                <div class="flex items-start gap-4">
+                    <div class="text-4xl">🌐</div>
+                    <div class="flex-1">
+                        <h3 class="text-xl font-semibold mb-2">Chrome Remote Desktop</h3>
+                        <p class="text-gray-600 mb-4">Control remoto de Google</p>
+                        <a href="https://remotedesktop.google.com/access/" target="_blank" rel="noopener noreferrer" 
+                           class="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
+                            📥 Descargar
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RustDesk -->
+            <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition">
+                <div class="flex items-start gap-4">
+                    <div class="text-4xl">🔧</div>
+                    <div class="flex-1">
+                        <h3 class="text-xl font-semibold mb-2">RustDesk</h3>
+                        <p class="text-gray-600 mb-4">Software de escritorio remoto</p>
+                        <a href="https://rustdesk.com/es/" target="_blank" rel="noopener noreferrer" 
+                           class="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
+                            📥 Descargar
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Instructions -->
+        <div class="mt-12 bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-lg font-semibold mb-2">💡 Instrucciones</h3>
+            <ol class="text-gray-700 space-y-2">
+                <li>1. Descarga el programa que prefieras</li>
+                <li>2. Instala y ejecuta la aplicación</li>
+                <li>3. Comparte el ID de conexión conmigo</li>
+                <li>4. Espera la conexión para comenzar el soporte</li>
+            </ol>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacto" class="section hidden max-w-4xl mx-auto px-6 py-20">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                Contacto
+            </h2>
+            <p class="text-lg text-gray-600">
+                ¿Necesitas ayuda? Contáctame
+            </p>
+        </div>
+
+        <div class="bg-white p-8 rounded-lg shadow-sm">
+            <form class="space-y-6" onsubmit="handleSubmit(event)">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        Nombre
+                    </label>
+                    <input type="text" required
+                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                           placeholder="Tu nombre">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        Email
+                    </label>
+                    <input type="email" required
+                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                           placeholder="tu@email.com">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        Mensaje
+                    </label>
+                    <textarea rows="5" required
+                              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                              placeholder="Describe tu problema o consulta..."></textarea>
+                </div>
+                <button type="submit" class="w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">
+                    Enviar Mensaje
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white mt-20">
+        <div class="max-w-6xl mx-auto px-6 py-8 text-center">
+            <p class="text-gray-400">
+                © 2024 Asistencia Remota. Soporte técnico profesional.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.add('hidden');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.remove('hidden');
+            
+            // Update nav buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active-link');
+                btn.classList.add('text-gray-600');
+            });
+            
+            event.target.classList.add('active-link');
+            event.target.classList.remove('text-gray-600');
+        }
+
+        function handleSubmit(event) {
+            event.preventDefault();
+            alert('Gracias por tu mensaje. Te contactaré pronto.');
+            event.target.reset();
+        }
+    </script>
+</body>
+</html>
