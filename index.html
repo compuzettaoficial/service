@@ -16,7 +16,12 @@
     <nav class="bg-white shadow-sm sticky top-0 z-50">
         <div class="max-w-6xl mx-auto px-6 py-4">
             <div class="flex justify-between items-center">
-                <h1 class="text-2xl font-bold text-gray-900">Asistencia Remota</h1>
+                <div class="flex items-center gap-3">
+                    <img src="https://raw.githubusercontent.com/compuzettaoficial/service/refs/heads/main/img/logo_compuzetta.png" 
+                         alt="CompuZetta" 
+                         class="h-12 w-auto">
+                    <h1 class="text-2xl font-bold text-gray-900">Asistencia Remota</h1>
+                </div>
                 <div class="flex gap-8">
                     <button onclick="showSection('inicio')" class="nav-btn active-link hover:text-blue-600 transition">
                         Inicio
@@ -45,20 +50,32 @@
 
         <!-- Services Grid -->
         <div class="grid md:grid-cols-3 gap-8 mt-16">
-            <div class="bg-white p-8 rounded-lg shadow-sm hover:shadow-md transition">
-                <div class="text-blue-600 mb-4 text-4xl">🖥️</div>
-                <h3 class="text-xl font-semibold mb-2">Soporte Técnico</h3>
-                <p class="text-gray-600">Resolución de problemas en tiempo real</p>
-            </div>
-            <div class="bg-white p-8 rounded-lg shadow-sm hover:shadow-md transition">
-                <div class="text-blue-600 mb-4 text-4xl">🛡️</div>
-                <h3 class="text-xl font-semibold mb-2">Seguridad</h3>
-                <p class="text-gray-600">Conexiones cifradas y seguras</p>
-            </div>
-            <div class="bg-white p-8 rounded-lg shadow-sm hover:shadow-md transition">
-                <div class="text-blue-600 mb-4 text-4xl">🎧</div>
-                <h3 class="text-xl font-semibold mb-2">Atención 24/7</h3>
+            <div class="bg-white p-8 rounded-lg shadow-sm hover:shadow-md transition text-center">
+                <div class="flex justify-center mb-4">
+                    <img src="https://raw.githubusercontent.com/compuzettaoficial/service/refs/heads/main/img/logo_asistencia.png" 
+                         alt="Asistencia 24/7" 
+                         class="w-24 h-24 object-contain">
+                </div>
+                <h3 class="text-xl font-semibold mb-2">Asistencia 24/7</h3>
                 <p class="text-gray-600">Disponible cuando lo necesites</p>
+            </div>
+            <div class="bg-white p-8 rounded-lg shadow-sm hover:shadow-md transition text-center">
+                <div class="flex justify-center mb-4">
+                    <img src="https://raw.githubusercontent.com/compuzettaoficial/service/refs/heads/main/img/logo_seguridad.png" 
+                         alt="Seguridad" 
+                         class="w-24 h-24 object-contain">
+                </div>
+                <h3 class="text-xl font-semibold mb-2">Seguridad Garantizada</h3>
+                <p class="text-gray-600">Conexiones cifradas y protegidas</p>
+            </div>
+            <div class="bg-white p-8 rounded-lg shadow-sm hover:shadow-md transition text-center">
+                <div class="flex justify-center mb-4">
+                    <img src="https://raw.githubusercontent.com/compuzettaoficial/service/refs/heads/main/img/logo_actualiza.png" 
+                         alt="Actualización" 
+                         class="w-24 h-24 object-contain">
+                </div>
+                <h3 class="text-xl font-semibold mb-2">Siempre Actualizado</h3>
+                <p class="text-gray-600">Software y drivers al día</p>
             </div>
         </div>
     </section>
@@ -265,12 +282,6 @@
             
             event.target.classList.add('active-link');
             event.target.classList.remove('text-gray-600');
-        }
-
-        function handleSubmit(event) {
-            event.preventDefault();
-            alert('Gracias por tu mensaje. Te contactaré pronto.');
-            event.target.reset();
         }
     </script>
 </body>
