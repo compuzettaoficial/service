@@ -7,7 +7,6 @@
     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/compuzettaoficial/service/refs/heads/main/Favi.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .hidden { display: none; }
         .active-link { color: #06b6d4; }
     </style>
 </head>
@@ -23,22 +22,22 @@
                     <h1 class="text-2xl font-bold text-gray-900">Asistencia Remota</h1>
                 </div>
                 <div class="flex gap-8">
-                    <button onclick="showSection('inicio')" class="nav-btn active-link hover:text-cyan-500 transition">
+                    <a href="index.html" class="active-link hover:text-cyan-500 transition">
                         Inicio
-                    </button>
-                    <button onclick="showSection('programas')" class="nav-btn text-gray-600 hover:text-cyan-500 transition">
+                    </a>
+                    <a href="programas.html" class="text-gray-600 hover:text-cyan-500 transition">
                         Programas
-                    </button>
-                    <button onclick="showSection('contacto')" class="nav-btn text-gray-600 hover:text-cyan-500 transition">
+                    </a>
+                    <a href="contacto.html" class="text-gray-600 hover:text-cyan-500 transition">
                         Contacto
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="inicio" class="section max-w-6xl mx-auto px-6 py-20">
+    <section class="max-w-6xl mx-auto px-6 py-20">
         <div class="text-center mb-16">
             <h2 class="text-5xl font-bold text-gray-900 mb-4">
                 Soporte Técnico Remoto
@@ -80,219 +79,13 @@
         </div>
     </section>
 
-    <!-- Programs Section -->
-    <section id="programas" class="section hidden max-w-6xl mx-auto px-6 py-20">
-        <div class="text-center mb-12">
-            <h2 class="text-4xl font-bold text-gray-900 mb-4">
-                Programas de Conexión Remota
-            </h2>
-            <p class="text-lg text-gray-600">
-                Descarga el programa que necesites para comenzar la asistencia
-            </p>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-6">
-            <!-- AnyDesk -->
-            <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition">
-                <div class="flex items-start gap-4">
-                    <img src="https://raw.githubusercontent.com/compuzettaoficial/service/refs/heads/main/software/logos/AnyDesk.png" 
-                         alt="AnyDesk Logo" 
-                         class="w-16 h-16 object-contain">
-                    <div class="flex-1">
-                        <h3 class="text-xl font-semibold mb-2">AnyDesk</h3>
-                        <p class="text-gray-600 mb-4">Acceso remoto rápido y seguro</p>
-                        <div class="flex flex-col gap-2">
-                            <a href="#" 
-                               class="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-6 py-2 rounded-lg hover:from-cyan-600 hover:to-blue-700 transition-all shadow-md">
-                                ⚡ Descarga Rápida
-                            </a>
-                            <a href="https://anydesk.com/es/downloads" target="_blank" rel="noopener noreferrer" 
-                               class="inline-flex items-center justify-center gap-2 border-2 border-cyan-400 text-gray-700 px-6 py-2 rounded-lg hover:border-cyan-600 hover:text-cyan-600 transition">
-                                🌐 Sitio Oficial
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TeamViewer -->
-            <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition">
-                <div class="flex items-start gap-4">
-                    <img src="https://raw.githubusercontent.com/compuzettaoficial/service/refs/heads/main/software/logos/Teamviewer.png" 
-                         alt="TeamViewer Logo" 
-                         class="w-16 h-16 object-contain">
-                    <div class="flex-1">
-                        <h3 class="text-xl font-semibold mb-2">TeamViewer</h3>
-                        <p class="text-gray-600 mb-4">Soporte remoto completo</p>
-                        <div class="flex flex-col gap-2">
-                            <a href="#" 
-                               class="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-6 py-2 rounded-lg hover:from-cyan-600 hover:to-blue-700 transition-all shadow-md">
-                                ⚡ Descarga Rápida
-                            </a>
-                            <a href="https://www.teamviewer.com/es/descarga/" target="_blank" rel="noopener noreferrer" 
-                               class="inline-flex items-center justify-center gap-2 border-2 border-cyan-400 text-gray-700 px-6 py-2 rounded-lg hover:border-cyan-600 hover:text-cyan-600 transition">
-                                🌐 Sitio Oficial
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Chrome Remote Desktop -->
-            <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition">
-                <div class="flex items-start gap-4">
-                    <img src="https://raw.githubusercontent.com/compuzettaoficial/service/refs/heads/main/software/logos/Chrome.png" 
-                         alt="Chrome Remote Desktop Logo" 
-                         class="w-16 h-16 object-contain">
-                    <div class="flex-1">
-                        <h3 class="text-xl font-semibold mb-2">Chrome Remote Desktop</h3>
-                        <p class="text-gray-600 mb-4">Control remoto de Google</p>
-                        <div class="flex flex-col gap-2">
-                            <a href="#" 
-                               class="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-6 py-2 rounded-lg hover:from-cyan-600 hover:to-blue-700 transition-all shadow-md">
-                                ⚡ Descarga Rápida
-                            </a>
-                            <a href="https://remotedesktop.google.com/access/" target="_blank" rel="noopener noreferrer" 
-                               class="inline-flex items-center justify-center gap-2 border-2 border-cyan-400 text-gray-700 px-6 py-2 rounded-lg hover:border-cyan-600 hover:text-cyan-600 transition">
-                                🌐 Sitio Oficial
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- RustDesk -->
-            <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition">
-                <div class="flex items-start gap-4">
-                    <img src="https://raw.githubusercontent.com/compuzettaoficial/service/refs/heads/main/software/logos/rusdtdesk.png" 
-                         alt="RustDesk Logo" 
-                         class="w-16 h-16 object-contain">
-                    <div class="flex-1">
-                        <h3 class="text-xl font-semibold mb-2">RustDesk (64-bit)</h3>
-                        <p class="text-gray-600 mb-4">Software de escritorio remoto</p>
-                        <div class="flex flex-col gap-2">
-                            <a href="https://github.com/compuzettaoficial/service/raw/main/software/RUST.exe" 
-                               download
-                               class="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-6 py-2 rounded-lg hover:from-cyan-600 hover:to-blue-700 transition-all shadow-md">
-                                ⚡ Descarga Rápida
-                            </a>
-                            <a href="https://rustdesk.com/es/" target="_blank" rel="noopener noreferrer" 
-                               class="inline-flex items-center justify-center gap-2 border-2 border-cyan-400 text-gray-700 px-6 py-2 rounded-lg hover:border-cyan-600 hover:text-cyan-600 transition">
-                                🌐 Sitio Oficial
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Instructions -->
-        <div class="mt-12 bg-blue-50 p-6 rounded-lg">
-            <h3 class="text-lg font-semibold mb-2">💡 Instrucciones</h3>
-            <ol class="text-gray-700 space-y-2">
-                <li>1. Descarga el programa que prefieras</li>
-                <li>2. Instala y ejecuta la aplicación</li>
-                <li>3. Comparte el ID de conexión conmigo</li>
-                <li>4. Espera la conexión para comenzar el soporte</li>
-            </ol>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contacto" class="section hidden max-w-6xl mx-auto px-6 py-20">
-        <div class="text-center mb-12">
-            <h2 class="text-4xl font-bold text-gray-900 mb-4">
-                Contacto
-            </h2>
-            <p class="text-lg text-gray-600">
-                ¿Necesitas ayuda? Contáctame
-            </p>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-8 items-center">
-            <!-- Imagen del técnico -->
-            <div class="order-2 md:order-1">
-                <img src="https://raw.githubusercontent.com/compuzettaoficial/service/refs/heads/main/img/logo_tecnico.jpg" 
-                     alt="Soporte Técnico Profesional" 
-                     class="w-full h-auto rounded-lg shadow-lg">
-            </div>
-
-            <!-- Formulario -->
-            <div class="order-1 md:order-2 bg-white p-8 rounded-lg shadow-sm">
-                <form action="https://formsubmit.co/compuzettaoficial@gmail.com" method="POST" class="space-y-6">
-                    <!-- FormSubmit Configuration -->
-                    <input type="hidden" name="_subject" value="Nuevo mensaje de contacto - Asistencia Remota">
-                    <input type="hidden" name="_captcha" value="false">
-                    <input type="hidden" name="_template" value="table">
-                    
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">
-                            Nombre
-                        </label>
-                        <input type="text" name="nombre" required
-                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
-                               placeholder="Tu nombre">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">
-                            Email
-                        </label>
-                        <input type="email" name="email" required
-                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
-                               placeholder="tu@email.com">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">
-                            Teléfono (opcional)
-                        </label>
-                        <input type="tel" name="telefono"
-                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
-                               placeholder="+51 999 999 999">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">
-                            Mensaje
-                        </label>
-                        <textarea name="mensaje" rows="5" required
-                                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
-                                  placeholder="Describe tu problema o consulta..."></textarea>
-                    </div>
-                    <button type="submit" class="w-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-6 py-3 rounded-lg hover:from-cyan-600 hover:to-blue-700 transition-all shadow-lg">
-                        Enviar Mensaje
-                    </button>
-                </form>
-            </div>
-        </div>
-    </section>
-
     <!-- Footer -->
     <footer class="bg-gray-900 text-white mt-20">
         <div class="max-w-6xl mx-auto px-6 py-8 text-center">
             <p class="text-gray-400">
-                © 2004 Asistencia Remota. Soporte técnico profesional.
+                © 2024 Asistencia Remota. Soporte técnico profesional.
             </p>
         </div>
     </footer>
-
-    <script>
-        function showSection(sectionId) {
-            // Hide all sections
-            document.querySelectorAll('.section').forEach(section => {
-                section.classList.add('hidden');
-            });
-            
-            // Show selected section
-            document.getElementById(sectionId).classList.remove('hidden');
-            
-            // Update nav buttons
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('active-link');
-                btn.classList.add('text-gray-600');
-            });
-            
-            event.target.classList.add('active-link');
-            event.target.classList.remove('text-gray-600');
-        }
-    </script>
 </body>
 </html>
