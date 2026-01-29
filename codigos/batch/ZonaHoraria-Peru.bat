@@ -1,0 +1,11 @@
+@echo off
+echo Configurando zona horaria a Peru (UTC-05:00)...
+tzutil /s "SA Pacific Standard Time"
+
+if %errorlevel% equ 0 (
+    echo Zona horaria configurada correctamente.
+) else (
+    echo ERROR: Ejecuta este script como Administrador.
+)
+
+pause
