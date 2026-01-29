@@ -1,0 +1,80 @@
+========================================
+PLANTILLA PARA AGREGAR NUEVOS CÓDIGOS
+========================================
+
+Cada vez que quieras agregar un nuevo código:
+1. Sube tu archivo .txt a GitHub en la carpeta /codigos/[categoria]/
+2. Copia el bloque de abajo
+3. Pégalo dentro del <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+4. Cambia estos 5 elementos:
+
+   ✏️ ICONO (emoji)
+   ✏️ TÍTULO del código
+   ✏️ DESCRIPCIÓN corta
+   ✏️ URL del archivo en GitHub
+   ✏️ COLOR del borde (opcional)
+
+========================================
+PLANTILLA - COPIA DESDE AQUÍ ⬇️
+========================================
+
+            <!-- NOMBRE DEL CÓDIGO -->
+            <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition border-l-4 border-cyan-500">
+                <div class="flex items-start gap-3 mb-3">
+                    <span class="text-3xl">⚙️</span>
+                    <div class="flex-1">
+                        <h3 class="text-lg font-semibold text-gray-900">Título del Código</h3>
+                        <p class="text-sm text-gray-600">Descripción breve de qué hace</p>
+                    </div>
+                </div>
+                <a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/codigos/CARPETA/NOMBRE-ARCHIVO.txt" 
+                   target="_blank" 
+                   class="inline-flex items-center justify-center w-full gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-4 py-2 rounded-lg hover:from-cyan-600 hover:to-blue-700 transition-all shadow-md text-sm">
+                    📄 Ver Código
+                </a>
+            </div>
+
+========================================
+HASTA AQUÍ ⬆️
+========================================
+
+OPCIONES DE ICONOS RECOMENDADOS:
+⚙️ - Configuración/Scripts generales
+🔧 - Reparación/Fix
+📝 - Registro (archivos .reg)
+⚡ - PowerShell
+🖥️ - Sistema operativo
+🌐 - Red/Internet
+🔒 - Seguridad
+🗂️ - Archivos/Carpetas
+⏰ - Tiempo/Fecha
+🔄 - Actualización/Sincronización
+
+OPCIONES DE COLOR DEL BORDE:
+border-cyan-500   (celeste - por defecto)
+border-blue-500   (azul)
+border-green-500  (verde)
+border-yellow-500 (amarillo)
+border-red-500    (rojo)
+border-purple-500 (morado)
+border-gray-500   (gris)
+
+========================================
+EJEMPLO COMPLETO:
+========================================
+
+            <!-- Activar Windows Defender -->
+            <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition border-l-4 border-green-500">
+                <div class="flex items-start gap-3 mb-3">
+                    <span class="text-3xl">🔒</span>
+                    <div class="flex-1">
+                        <h3 class="text-lg font-semibold text-gray-900">Activar Windows Defender</h3>
+                        <p class="text-sm text-gray-600">Habilita protección en tiempo real</p>
+                    </div>
+                </div>
+                <a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/codigos/batch/ActivarDefender.txt" 
+                   target="_blank" 
+                   class="inline-flex items-center justify-center w-full gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-4 py-2 rounded-lg hover:from-cyan-600 hover:to-blue-700 transition-all shadow-md text-sm">
+                    📄 Ver Código
+                </a>
+            </div>
