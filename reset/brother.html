@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset Brother - Asistencia Remota</title>
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/compuzettaoficial/service/refs/heads/main/Favi.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>.active-link { color: #06b6d4; }</style>
+</head>
+<body class="bg-gray-50">
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <img src="https://raw.githubusercontent.com/compuzettaoficial/service/refs/heads/main/img/logo_compuzetta.png" alt="CompuZetta" class="h-12 w-auto">
+                    <h1 class="text-2xl font-bold text-gray-900">Asistencia Remota</h1>
+                </div>
+                <div class="flex gap-8 text-sm">
+                    <a href="../index.html" class="text-gray-600 hover:text-cyan-500 transition">Inicio</a>
+                    <a href="../programas.html" class="text-gray-600 hover:text-cyan-500 transition">Programas</a>
+                    <a href="../impresoras.html" class="active-link hover:text-cyan-500 transition">Impresoras</a>
+                    <a href="../contacto.html" class="text-gray-600 hover:text-cyan-500 transition">Contacto</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="max-w-5xl mx-auto px-6 py-12">
+        <div class="text-sm text-gray-500 mb-6">
+            <a href="../impresoras.html" class="hover:text-cyan-500">🖨️ Impresoras</a> → <span class="text-yellow-600 font-semibold">Brother</span>
+        </div>
+
+        <h2 class="text-3xl font-bold text-gray-900 mb-2">🟡 Reset Brother</h2>
+        <p class="text-gray-600 mb-8">Herramientas de reset para impresoras Brother.</p>
+
+        <div class="mb-8">
+            <input type="text" id="buscar" onkeyup="filtrar()" placeholder="🔍 Buscar modelo... ej: DCP-T510W"
+                   class="w-full md:w-80 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent">
+        </div>
+
+        <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+            <table class="w-full text-sm">
+                <thead class="bg-yellow-500 text-white">
+                    <tr>
+                        <th class="px-4 py-3 text-left">Modelo</th>
+                        <th class="px-4 py-3 text-left">Reset</th>
+                        <th class="px-4 py-3 text-left">Video Tutorial</th>
+                        <th class="px-4 py-3 text-left">Notas</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <!-- ============================================ -->
+                    <!-- AGREGA TUS MODELOS BROTHER AQUÍ            -->
+                    <!-- ============================================ -->
+
+                    <tr class="border-b hover:bg-gray-50 fila-modelo">
+                        <td class="px-4 py-3 font-semibold text-gray-900">Brother DCP-T510W</td>
+                        <td class="px-4 py-3">
+                            <a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/brother/DCPT510W.exe" 
+                               download class="inline-flex items-center gap-1 bg-yellow-500 text-white px-3 py-1 rounded text-xs hover:bg-yellow-600 transition">
+                                ⬇️ Descargar
+                            </a>
+                        </td>
+                        <td class="px-4 py-3">
+                            <a href="https://www.youtube.com/watch?v=XXXXXXXXX" target="_blank"
+                               class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">
+                                ▶️ Ver video
+                            </a>
+                        </td>
+                        <td class="px-4 py-3 text-gray-500 text-xs">Reset almohadilla</td>
+                    </tr>
+
+                    <tr class="border-b hover:bg-gray-50 fila-modelo">
+                        <td class="px-4 py-3 font-semibold text-gray-900">Brother MFC-T910DW</td>
+                        <td class="px-4 py-3">
+                            <a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/brother/MFCT910DW.zip" 
+                               download class="inline-flex items-center gap-1 bg-yellow-500 text-white px-3 py-1 rounded text-xs hover:bg-yellow-600 transition">
+                                ⬇️ Descargar
+                            </a>
+                        </td>
+                        <td class="px-4 py-3">
+                            <span class="text-gray-400 text-xs">— sin video —</span>
+                        </td>
+                        <td class="px-4 py-3 text-gray-500 text-xs">—</td>
+                    </tr>
+
+                    <!-- ============================================ -->
+                </tbody>
+            </table>
+        </div>
+
+        <div id="sinResultados" class="hidden mt-4 text-center text-gray-500 py-6 bg-white rounded-lg border">
+            😕 No se encontró ese modelo. <a href="../contacto.html" class="text-cyan-500 underline">Contáctame</a> y lo busco.
+        </div>
+
+        <div class="mt-8 text-sm text-gray-500 bg-gray-100 p-4 rounded-lg">
+            💡 Si tu modelo no aparece, <a href="../contacto.html" class="text-cyan-600 underline">escríbeme</a> y lo agrego.
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-white mt-10">
+        <div class="max-w-6xl mx-auto px-6 py-8 text-center">
+            <p class="text-gray-400">© 2024 Asistencia Remota. Soporte técnico profesional.</p>
+        </div>
+    </footer>
+
+    <script>
+        function filtrar() {
+            const texto = document.getElementById('buscar').value.toLowerCase();
+            const filas = document.querySelectorAll('.fila-modelo');
+            let visibles = 0;
+            filas.forEach(fila => {
+                const modelo = fila.querySelector('td').textContent.toLowerCase();
+                if (modelo.includes(texto)) { fila.style.display = ''; visibles++; }
+                else { fila.style.display = 'none'; }
+            });
+            document.getElementById('sinResultados').classList.toggle('hidden', visibles > 0);
+        }
+    </script>
+</body>
+</html>
