@@ -9,6 +9,83 @@
     <style>.active-link { color: #06b6d4; }</style>
 </head>
 <body class="bg-gray-50">
+
+<!-- ===================== MODAL INSTRUCCIONES ===================== -->
+<div id="modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black bg-opacity-50 p-4">
+    <div class="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <div class="flex justify-between items-center p-5 border-b">
+            <h3 id="modalTitulo" class="text-base font-bold text-gray-900"></h3>
+            <button onclick="cerrarModal()" class="text-gray-400 hover:text-gray-700 text-2xl font-bold leading-none">&times;</button>
+        </div>
+        <div id="modalContenido" class="p-5 text-sm text-gray-700 space-y-3"></div>
+        <div class="p-4 border-t text-right">
+            <button onclick="cerrarModal()" class="bg-red-600 text-white px-5 py-2 rounded-lg hover:bg-red-700 transition text-sm">Cerrar</button>
+        </div>
+    </div>
+</div>
+
+<script>
+const instrucciones = {
+    "servicetools6310": {
+        titulo: "📋 Service Tool V6310 — Error 5B00 (G6010 / G7010)",
+        pasos: `
+        <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
+            <p class="font-semibold text-yellow-800 mb-2">📌 Pasos Previos Importantes</p>
+            <ol class="list-decimal list-inside space-y-1 text-yellow-900">
+                <li>Descarga e instala el <strong>driver oficial</strong> de tu impresora antes de continuar.</li>
+                <li>Conecta la impresora a la PC con <strong>cable USB</strong>.</li>
+                <li>Asegúrate de que la impresora esté <strong>encendida sin errores adicionales</strong>.</li>
+                <li>Ten <strong>papel en la bandeja</strong> para la hoja de prueba al finalizar.</li>
+            </ol>
+        </div>
+        <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+            <p class="font-semibold text-blue-800 mb-2">🔧 Paso 1 — Entrar en Modo de Servicio</p>
+            <ol class="list-decimal list-inside space-y-1 text-blue-900">
+                <li>Apaga la impresora.</li>
+                <li>Mantén presionado el <strong>botón de Encendido (Power)</strong>.</li>
+                <li>Sin soltar Power, presiona el <strong>botón Stop/Recuperación 5 veces</strong>.</li>
+                <li>Suelta todo y espera. La pantalla puede quedarse en blanco o mostrar <strong>"S"</strong>.</li>
+            </ol>
+            <p class="mt-2 text-green-700 font-semibold">✅ La impresora ya está en Modo de Servicio.</p>
+        </div>
+        <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+            <p class="font-semibold text-gray-800 mb-2">💻 Paso 2 — Usar Service Tool V6310</p>
+            <ol class="list-decimal list-inside space-y-1 text-gray-700">
+                <li>Abre <strong>Service Tool V6310</strong> como Administrador (clic derecho → Ejecutar como administrador).</li>
+                <li>En <strong>CLEAR INK COUNTER</strong>, haz clic en <strong>SET</strong>.</li>
+                <li>En <strong>INK Absorber COUNTER</strong>, haz clic en <strong>SET</strong>.</li>
+                <li>La impresora imprimirá una hoja con el contador en <strong>0</strong>.</li>
+                <li><strong>Apaga y vuelve a encender</strong> la impresora normalmente.</li>
+            </ol>
+            <p class="mt-2 text-green-700 font-semibold">✅ ¡Reset completado! El error 5B00 debería estar resuelto.</p>
+        </div>`
+    }
+    // Para agregar más instrucciones: copia el bloque de arriba con una nueva clave
+};
+
+function abrirModal(id) {
+    const data = instrucciones[id];
+    if (!data) return;
+    document.getElementById('modalTitulo').textContent = data.titulo;
+    document.getElementById('modalContenido').innerHTML = data.pasos;
+    const modal = document.getElementById('modal');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+}
+
+function cerrarModal() {
+    const modal = document.getElementById('modal');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('modal').addEventListener('click', function(e) {
+        if (e.target === this) cerrarModal();
+    });
+});
+</script>
+
     <nav class="bg-white shadow-sm sticky top-0 z-50">
         <div class="max-w-6xl mx-auto px-6 py-4">
             <div class="flex justify-between items-center">
@@ -45,6 +122,7 @@
                     <tr>
                         <th class="px-4 py-3 text-left">Modelo</th>
                         <th class="px-4 py-3 text-left">Reset</th>
+                        <th class="px-4 py-3 text-left">Instrucciones</th>
                         <th class="px-4 py-3 text-left">Video Tutorial</th>
                         <th class="px-4 py-3 text-left">Notas</th>
                     </tr>
@@ -63,6 +141,11 @@
                                 ⬇️ Descargar
                             </a>
                         </td>
+                        <td class="px-4 py-3">
+                            <button onclick="abrirModal('servicetools6310')" class="inline-flex items-center gap-1 bg-orange-500 text-white px-3 py-1 rounded text-xs hover:bg-orange-600 transition">
+                                📋 Ver pasos
+                            </button>
+                        </td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">Error 5B00</td>
                     </tr>
@@ -74,6 +157,11 @@
                                download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">
                                 ⬇️ Descargar
                             </a>
+                        </td>
+                        <td class="px-4 py-3">
+                            <button onclick="abrirModal('servicetools6310')" class="inline-flex items-center gap-1 bg-orange-500 text-white px-3 py-1 rounded text-xs hover:bg-orange-600 transition">
+                                📋 Ver pasos
+                            </button>
                         </td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">Error 5B00</td>
@@ -87,60 +175,70 @@
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon E410</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon E460</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon E470</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon E471</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon E481</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon E500</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon E510</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon E560</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon E600</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon E610</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
@@ -149,85 +247,99 @@
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon G1000</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
-                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
+                        <td class="px-4 py-3"><a href="https://www.youtube.com/watch?v=z2Acc_5_Lk4" target="_blank" class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">▶️ Ver video</a></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon G1100</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
-                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
+                        <td class="px-4 py-3"><a href="https://www.youtube.com/watch?v=z2Acc_5_Lk4" target="_blank" class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">▶️ Ver video</a></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon G1400</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
-                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
+                        <td class="px-4 py-3"><a href="https://www.youtube.com/watch?v=z2Acc_5_Lk4" target="_blank" class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">▶️ Ver video</a></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon G1900</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
-                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
+                        <td class="px-4 py-3"><a href="https://www.youtube.com/watch?v=z2Acc_5_Lk4" target="_blank" class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">▶️ Ver video</a></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon G2000</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
-                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
+                        <td class="px-4 py-3"><a href="https://www.youtube.com/watch?v=z2Acc_5_Lk4" target="_blank" class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">▶️ Ver video</a></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon G2100</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
-                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
+                        <td class="px-4 py-3"><a href="https://www.youtube.com/watch?v=z2Acc_5_Lk4" target="_blank" class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">▶️ Ver video</a></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon G2400</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
-                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
+                        <td class="px-4 py-3"><a href="https://www.youtube.com/watch?v=z2Acc_5_Lk4" target="_blank" class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">▶️ Ver video</a></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon G2900</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
-                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
+                        <td class="px-4 py-3"><a href="https://www.youtube.com/watch?v=z2Acc_5_Lk4" target="_blank" class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">▶️ Ver video</a></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon G3000</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
-                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
+                        <td class="px-4 py-3"><a href="https://www.youtube.com/watch?v=z2Acc_5_Lk4" target="_blank" class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">▶️ Ver video</a></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon G3100</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
-                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
+                        <td class="px-4 py-3"><a href="https://www.youtube.com/watch?v=z2Acc_5_Lk4" target="_blank" class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">▶️ Ver video</a></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon G3400</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
-                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
+                        <td class="px-4 py-3"><a href="https://www.youtube.com/watch?v=z2Acc_5_Lk4" target="_blank" class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">▶️ Ver video</a></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon G3900</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
-                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
+                        <td class="px-4 py-3"><a href="https://www.youtube.com/watch?v=z2Acc_5_Lk4" target="_blank" class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">▶️ Ver video</a></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon G4000</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
-                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
+                        <td class="px-4 py-3"><a href="https://www.youtube.com/watch?v=z2Acc_5_Lk4" target="_blank" class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">▶️ Ver video</a></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon G4100</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
-                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
+                        <td class="px-4 py-3"><a href="https://www.youtube.com/watch?v=z2Acc_5_Lk4" target="_blank" class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">▶️ Ver video</a></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
 
@@ -235,186 +347,217 @@
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon IP1200</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon IP1300</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon IP1600</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon IP1700</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon IP1800</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon IP1900</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon IP2200</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon IP2500</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon IP2600</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon IP2700</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon IP2770</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon IP2772</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon IP2870S</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon IP3600</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon IP3680</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon IP4700</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon IP4800</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon IP4810</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon IP4840</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon IP4850</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon IP4870</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon IP4900</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon IP4910</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon IP4940</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon IP4970</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon IP4980</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon IP4990</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon IP5810</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon IP5880</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon IP7240</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon IP7270</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
@@ -423,42 +566,49 @@
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon IX6500</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon IX6510</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon IX6560</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon IX6840</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon IX6870</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon IX6770</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon IX7000</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
@@ -467,180 +617,210 @@
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MG2120</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MG2140</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MG2240</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MG2270</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MG2570S</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MG3140</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MG3510</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MG3540</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MG3600</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MG3610</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MG3570</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MG3670</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MG4140</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MG5140</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MG5150</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MG5170</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MG5240</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MG5270</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MG5340</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MG5450</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MG5770</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MG6140</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MG6150</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MG6170</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MG6240</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MG6370</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MG7770</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MG8140</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MG8170</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MG8240</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
@@ -649,126 +829,147 @@
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MP160</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MP230</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MP237</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MP250</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MP258</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MP260</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MP270</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MP278</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MP280</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MP287</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MP480</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MP490</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MP497</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MP540</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MP550</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MP560</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MP620</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MP630</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MP640</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MP980</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MP990</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
@@ -777,48 +978,56 @@
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MX320</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MX330</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MX377</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MX397</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MX410</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MX497</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MX537</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon MX860</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
@@ -827,12 +1036,14 @@
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon Pro 9000 Mark II</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50 fila-modelo">
                         <td class="px-4 py-3 font-semibold text-gray-900">Canon Pro 9500 Mark II</td>
                         <td class="px-4 py-3"><a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/reset/canon/IGT_RESET_CANON_IMPRESORASGT.rar" download class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">⬇️ Descargar</a></td>
+                        <td class="px-4 py-3"><span class="text-gray-400 text-xs">—</span></td>
                         <td class="px-4 py-3"><span class="text-gray-400 text-xs">— sin video —</span></td>
                         <td class="px-4 py-3 text-gray-500 text-xs">IGT Reset</td>
                     </tr>
