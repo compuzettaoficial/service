@@ -11,6 +11,69 @@
     </style>
 </head>
 <body class="bg-gray-50">
+
+<!-- ===================== MODAL VER CÓDIGO ===================== -->
+<div id="modalCodigo" class="fixed inset-0 z-50 hidden items-center justify-center bg-black bg-opacity-50 p-4">
+    <div class="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <div class="flex justify-between items-center p-5 border-b">
+            <h3 id="modalCodigoTitulo" class="text-base font-bold text-gray-900"></h3>
+            <button onclick="cerrarModalCodigo()" class="text-gray-400 hover:text-gray-700 text-2xl font-bold leading-none">&times;</button>
+        </div>
+        <div class="p-5">
+            <pre id="modalCodigoContenido" class="bg-gray-900 text-green-400 text-xs rounded-lg p-4 overflow-x-auto whitespace-pre-wrap"></pre>
+        </div>
+        <div class="p-4 border-t flex justify-between items-center">
+            <button onclick="copiarCodigo()" class="bg-cyan-500 text-white px-4 py-2 rounded-lg hover:bg-cyan-600 transition text-sm">📋 Copiar código</button>
+            <button onclick="cerrarModalCodigo()" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition text-sm">Cerrar</button>
+        </div>
+    </div>
+</div>
+
+<script>
+const codigos = {
+    "zonahoraria": {
+        titulo: "Zona Horaria Perú — ZonaHoraria-Peru.bat",
+        codigo: `@echo off
+:: Configura la zona horaria de Windows a Peru (UTC-05:00)
+tzutil /s "SA Pacific Standard Time"
+echo Zona horaria configurada correctamente a Peru (UTC-05:00)
+pause`
+    }
+    // Agrega más códigos aquí con el mismo formato
+};
+
+function verCodigo(id) {
+    const data = codigos[id];
+    if (!data) return;
+    document.getElementById('modalCodigoTitulo').textContent = data.titulo;
+    document.getElementById('modalCodigoContenido').textContent = data.codigo;
+    const modal = document.getElementById('modalCodigo');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+}
+
+function cerrarModalCodigo() {
+    const modal = document.getElementById('modalCodigo');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+}
+
+function copiarCodigo() {
+    const texto = document.getElementById('modalCodigoContenido').textContent;
+    navigator.clipboard.writeText(texto).then(() => {
+        const btn = document.querySelector('#modalCodigo button');
+        btn.textContent = '✅ Copiado!';
+        setTimeout(() => btn.textContent = '📋 Copiar código', 2000);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('modalCodigo').addEventListener('click', function(e) {
+        if (e.target === this) cerrarModalCodigo();
+    });
+});
+</script>
+
     <!-- Navigation -->
     <nav class="bg-white shadow-sm sticky top-0 z-50">
         <div class="max-w-6xl mx-auto px-6 py-4">
@@ -21,16 +84,11 @@
                          class="h-12 w-auto">
                     <h1 class="text-2xl font-bold text-gray-900">Asistencia Remota</h1>
                 </div>
-                <div class="flex gap-8">
-                    <a href="index.html" class="text-gray-600 hover:text-cyan-500 transition">
-                        Inicio
-                    </a>
-                    <a href="programas.html" class="active-link hover:text-cyan-500 transition">
-                        Programas
-                    </a>
-                    <a href="contacto.html" class="text-gray-600 hover:text-cyan-500 transition">
-                        Contacto
-                    </a>
+                <div class="flex gap-8 text-sm">
+                    <a href="index.html" class="text-gray-600 hover:text-cyan-500 transition">Inicio</a>
+                    <a href="programas.html" class="active-link hover:text-cyan-500 transition">Programas</a>
+                    
+                    <a href="contacto.html" class="text-gray-600 hover:text-cyan-500 transition">Contacto</a>
                 </div>
             </div>
         </div>
@@ -52,14 +110,12 @@
             <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition">
                 <div class="flex items-start gap-4">
                     <img src="https://raw.githubusercontent.com/compuzettaoficial/service/refs/heads/main/software/logos/AnyDesk.png" 
-                         alt="AnyDesk Logo" 
-                         class="w-16 h-16 object-contain">
+                         alt="AnyDesk Logo" class="w-16 h-16 object-contain">
                     <div class="flex-1">
                         <h3 class="text-xl font-semibold mb-2">AnyDesk</h3>
                         <p class="text-gray-600 mb-4">Acceso remoto rápido y seguro</p>
                         <div class="flex flex-col gap-2">
-                            <a href="#" 
-                               class="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-6 py-2 rounded-lg hover:from-cyan-600 hover:to-blue-700 transition-all shadow-md">
+                            <a href="#" class="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-6 py-2 rounded-lg hover:from-cyan-600 hover:to-blue-700 transition-all shadow-md">
                                 ⚡ Descarga Rápida
                             </a>
                             <a href="https://anydesk.com/es/downloads" target="_blank" rel="noopener noreferrer" 
@@ -75,14 +131,12 @@
             <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition">
                 <div class="flex items-start gap-4">
                     <img src="https://raw.githubusercontent.com/compuzettaoficial/service/refs/heads/main/software/logos/Teamviewer.png" 
-                         alt="TeamViewer Logo" 
-                         class="w-16 h-16 object-contain">
+                         alt="TeamViewer Logo" class="w-16 h-16 object-contain">
                     <div class="flex-1">
                         <h3 class="text-xl font-semibold mb-2">TeamViewer</h3>
                         <p class="text-gray-600 mb-4">Soporte remoto completo</p>
                         <div class="flex flex-col gap-2">
-                            <a href="#" 
-                               class="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-6 py-2 rounded-lg hover:from-cyan-600 hover:to-blue-700 transition-all shadow-md">
+                            <a href="#" class="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-6 py-2 rounded-lg hover:from-cyan-600 hover:to-blue-700 transition-all shadow-md">
                                 ⚡ Descarga Rápida
                             </a>
                             <a href="https://www.teamviewer.com/es/descarga/" target="_blank" rel="noopener noreferrer" 
@@ -98,14 +152,12 @@
             <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition">
                 <div class="flex items-start gap-4">
                     <img src="https://raw.githubusercontent.com/compuzettaoficial/service/refs/heads/main/software/logos/Chrome.png" 
-                         alt="Chrome Remote Desktop Logo" 
-                         class="w-16 h-16 object-contain">
+                         alt="Chrome Remote Desktop Logo" class="w-16 h-16 object-contain">
                     <div class="flex-1">
                         <h3 class="text-xl font-semibold mb-2">Chrome Remote Desktop</h3>
                         <p class="text-gray-600 mb-4">Control remoto de Google</p>
                         <div class="flex flex-col gap-2">
-                            <a href="#" 
-                               class="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-6 py-2 rounded-lg hover:from-cyan-600 hover:to-blue-700 transition-all shadow-md">
+                            <a href="#" class="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-6 py-2 rounded-lg hover:from-cyan-600 hover:to-blue-700 transition-all shadow-md">
                                 ⚡ Descarga Rápida
                             </a>
                             <a href="https://remotedesktop.google.com/access/" target="_blank" rel="noopener noreferrer" 
@@ -121,15 +173,13 @@
             <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition">
                 <div class="flex items-start gap-4">
                     <img src="https://raw.githubusercontent.com/compuzettaoficial/service/refs/heads/main/software/logos/rusdtdesk.png" 
-                         alt="RustDesk Logo" 
-                         class="w-16 h-16 object-contain">
+                         alt="RustDesk Logo" class="w-16 h-16 object-contain">
                     <div class="flex-1">
                         <h3 class="text-xl font-semibold mb-2">RustDesk (64-bit)</h3>
                         <p class="text-gray-600 mb-4">Software de escritorio remoto</p>
                         <div class="flex flex-col gap-2">
                             <a href="https://github.com/compuzettaoficial/service/raw/main/software/RUST.exe" 
-                               download
-                               class="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-6 py-2 rounded-lg hover:from-cyan-600 hover:to-blue-700 transition-all shadow-md">
+                               download class="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-6 py-2 rounded-lg hover:from-cyan-600 hover:to-blue-700 transition-all shadow-md">
                                 ⚡ Descarga Rápida
                             </a>
                             <a href="https://rustdesk.com/es/" target="_blank" rel="noopener noreferrer" 
@@ -155,7 +205,7 @@
     </section>
 
     <!-- ============================================= -->
-    <!-- NUEVA SECCIÓN: CÓDIGOS ÚTILES -->
+    <!-- SECCIÓN: CÓDIGOS ÚTILES                      -->
     <!-- ============================================= -->
     <section class="max-w-6xl mx-auto px-6 py-12">
         <div class="text-center mb-12">
@@ -168,9 +218,10 @@
         </div>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            
+
             <!-- ========== COPIA DESDE AQUÍ ========== -->
-            <!-- PLANTILLA: Código 1 -->
+
+            <!-- Zona Horaria Perú -->
             <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition border-l-4 border-cyan-500">
                 <div class="flex items-start gap-3 mb-3">
                     <span class="text-3xl">⚙️</span>
@@ -179,20 +230,40 @@
                         <p class="text-sm text-gray-600">Configura zona horaria UTC-05:00</p>
                     </div>
                 </div>
-                <a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/codigos/batch/ZonaHoraria-Peru.txt" 
-                   target="_blank" 
-                   class="inline-flex items-center justify-center w-full gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-4 py-2 rounded-lg hover:from-cyan-600 hover:to-blue-700 transition-all shadow-md text-sm">
-                    📄 Ver Código
-                </a>
+                <div class="flex flex-col gap-2 mt-2">
+                    <a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/utilitarios/fechayhora/ZonaHoraria-Peru.bat"
+                       download
+                       class="inline-flex items-center justify-center w-full gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-4 py-2 rounded-lg hover:from-cyan-600 hover:to-blue-700 transition-all shadow-md text-sm">
+                        ⬇️ Descargar .bat
+                    </a>
+                    <button onclick="verCodigo('zonahoraria')"
+                       class="inline-flex items-center justify-center w-full gap-2 border-2 border-cyan-400 text-gray-700 px-4 py-2 rounded-lg hover:border-cyan-600 hover:text-cyan-600 transition text-sm">
+                        👁️ Ver código
+                    </button>
+                </div>
             </div>
-            <!-- ========== HASTA AQUÍ ========== -->
 
-            <!-- EJEMPLO: Agrega más códigos copiando la plantilla de arriba -->
-            
+            <!-- ========== HASTA AQUÍ ========== -->
+            <!-- PLANTILLA para agregar más códigos:
+            <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition border-l-4 border-cyan-500">
+                <div class="flex items-start gap-3 mb-3">
+                    <span class="text-3xl">⚙️</span>
+                    <div class="flex-1">
+                        <h3 class="text-lg font-semibold text-gray-900">NOMBRE</h3>
+                        <p class="text-sm text-gray-600">DESCRIPCIÓN</p>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-2 mt-2">
+                    <a href="URL_ARCHIVO" download class="...">⬇️ Descargar .bat</a>
+                    <button onclick="verCodigo('CLAVE_EN_JS')" class="...">👁️ Ver código</button>
+                </div>
+            </div>
+            -->
+
         </div>
     </section>
 
-<!-- ============================================= -->
+    <!-- ============================================= -->
     <!-- SECCIÓN: UTILITARIOS                         -->
     <!-- ============================================= -->
     <section class="max-w-6xl mx-auto px-6 py-12">
@@ -215,7 +286,7 @@
                     <span class="text-3xl">🔆</span>
                     <div class="flex-1">
                         <h3 class="text-lg font-semibold text-gray-900">Dimmer v2.0.1</h3>
-                        <p class="text-sm text-gray-600">Reduce el brillo de la pantalla más allá del límite del sistema</p>
+                        <p class="text-sm text-gray-600">Reduce el brillo de la pantalla más allá del límite del sistema. Sin instalación, portable.</p>
                     </div>
                 </div>
                 <div class="flex flex-col gap-2 mt-4">
@@ -227,8 +298,26 @@
                 </div>
             </div>
 
-            <!-- PLANTILLA: copia este bloque para agregar más utilitarios -->
-            <!--
+            <!-- NetTime -->
+            <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition border-l-4 border-indigo-500">
+                <div class="flex items-start gap-3 mb-3">
+                    <span class="text-3xl">🕐</span>
+                    <div class="flex-1">
+                        <h3 class="text-lg font-semibold text-gray-900">NetTime v3.14</h3>
+                        <p class="text-sm text-gray-600">Sincroniza la fecha y hora automáticamente con servidores NTP.</p>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-2 mt-4">
+                    <a href="https://raw.githubusercontent.com/compuzettaoficial/service/main/software/utilitarios/fechayhora/NetTimeSetup-314.exe"
+                       download
+                       class="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-4 py-2 rounded-lg hover:from-indigo-600 hover:to-purple-700 transition-all shadow-md text-sm">
+                        ⬇️ Descargar
+                    </a>
+                </div>
+            </div>
+
+            <!-- ========== HASTA AQUÍ ========== -->
+            <!-- PLANTILLA para agregar más utilitarios:
             <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition border-l-4 border-indigo-500">
                 <div class="flex items-start gap-3 mb-3">
                     <span class="text-3xl">🔧</span>
@@ -247,12 +336,9 @@
             </div>
             -->
 
-            <!-- ========== HASTA AQUÍ ========== -->
-
         </div>
     </section>
 
-    
     <!-- Footer -->
     <footer class="bg-gray-900 text-white mt-20">
         <div class="max-w-6xl mx-auto px-6 py-8 text-center">
